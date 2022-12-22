@@ -1,8 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package gr.codelearn.jakarta.ed.example.servlet;
 
 import gr.codelearn.jakarta.ed.example.domain.Video;
+import gr.codelearn.jakarta.ed.example.qualifier.MP4;
 import gr.codelearn.jakarta.ed.example.service.VideoEditorService;
-import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,18 +16,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 /**
  *
  * @author giannis
  */
-@WebServlet(name = "aviServlet", urlPatterns = {"/avi-servlet"})
-public class AviServlet extends HttpServlet {
+@WebServlet(name = "mp4Servlet", urlPatterns = {"/mp4-servlet"})
+public class Mp4Servlet extends HttpServlet {
 
     private Video video;
     
     @Inject
-    @Default
+    @MP4
     private VideoEditorService aviService;
+    
+    @Inject
+    private String something;
 
     @Override
     public void init() {
@@ -37,16 +45,16 @@ public class AviServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AviServlet</title>");
+            out.println("<title>Servlet Mp4Servlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>" + aviService.edit(video) + "</h1>");
             out.println("<h1>" + aviService.save(video) + "</h1>");
+            out.println("<h1>" + something + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

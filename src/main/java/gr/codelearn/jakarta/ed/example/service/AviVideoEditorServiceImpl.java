@@ -2,14 +2,17 @@ package gr.codelearn.jakarta.ed.example.service;
 
 import gr.codelearn.jakarta.ed.example.domain.Video;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 //One instance
-//@ApplicationScoped
+@ApplicationScoped
+//One instance per browse
+//@SessionScoped
 //Different instance for each request
 //@RequestScoped
-@SessionScoped
 public class AviVideoEditorServiceImpl implements VideoEditorService,Serializable{
     private Integer randomViews;
     
@@ -17,6 +20,11 @@ public class AviVideoEditorServiceImpl implements VideoEditorService,Serializabl
     private void init(){
         randomViews = (int)(Math.random()*10000)+100;
         System.out.println("Class "+ getClass().getSimpleName() + " has been initialized");
+    }
+    
+    @PreDestroy
+    private void destroy(){
+        System.out.println("Class "+ getClass().getSimpleName() + " is being destroyed");
     }
 
     @Override
